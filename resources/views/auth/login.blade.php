@@ -4,7 +4,7 @@
 <body>
     <div class="container">
         <div class="row text-center">
-            <div class="col-md-6 mt-5">
+            <div class="col-md-offset-3 col-md-6 mt-5">
                 <div class="form-holder" style="background: #FFF; padding: 24px; border-radius: 16px;">
                     <div class="form-content">
                         <div class="form-items">
