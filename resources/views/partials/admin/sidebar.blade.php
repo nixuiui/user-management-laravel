@@ -19,6 +19,11 @@
                             <a href="{{ route('role') }}"><i class="icon mdi mdi-toys"></i><span>Role</span></a>
                         </li>
                         @endif
+                        @if (hasPermissionByKey(Auth::user()->role->permissions, 'repository_read'))
+                        <li class="{{ active(['repositories*']) }}">
+                            <a href="{{ route('repositories') }}"><i class="icon mdi mdi-toys"></i><span>Repositories</span></a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RepositoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/save/{id?}',  [UserRoleController::class, 'save'])->middleware('permission:role_create')->name('role.save');
         Route::get('/delete/{id}',  [UserRoleController::class, 'delete'])->middleware('permission:role_delete')->name('role.delete');
     });
+    
+    Route::get('/repositories',       [RepositoryController::class, 'index'])->middleware('permission:repository_read')->name('repositories');
 });
 
