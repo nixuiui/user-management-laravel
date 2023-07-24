@@ -22,18 +22,18 @@ Route::get('/logout',   [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/',             [UserController::class, 'index'])->name('user');
-        Route::get('/deleted',      [UserController::class, 'getDeletedUsers'])->name('user.deleted');
-        Route::get('/form/{id?}',   [UserController::class, 'form'])->name('user.form');
-        Route::post('/save/{id?}',  [UserController::class, 'save'])->name('user.save');
-        Route::get('/delete/{id}',  [UserController::class, 'delete'])->name('user.delete');
+        Route::get('/',             [UserController::class, 'index'])->middleware('permission:user_read')->name('user');
+        Route::get('/deleted',      [UserController::class, 'getDeletedUsers'])->middleware('permission:user_view_deleted')->name('user.deleted');
+        Route::get('/form/{id?}',   [UserController::class, 'form'])->middleware('permission:user_create')->name('user.form');
+        Route::post('/save/{id?}',  [UserController::class, 'save'])->middleware('permission:user_create')->name('user.save');
+        Route::get('/delete/{id}',  [UserController::class, 'delete'])->middleware('permission:user_delete')->name('user.delete');
     });
     
     Route::group(['prefix' => 'role'], function () {
-        Route::get('/',             [UserRoleController::class, 'index'])->name('role');
-        Route::get('/form/{id?}',   [UserRoleController::class, 'form'])->name('role.form');
-        Route::post('/save/{id?}',  [UserRoleController::class, 'save'])->name('role.save');
-        Route::get('/delete/{id}',  [UserRoleController::class, 'delete'])->name('role.delete');
+        Route::get('/',             [UserRoleController::class, 'index'])->middleware('permission:role_read')->name('role');
+        Route::get('/form/{id?}',   [UserRoleController::class, 'form'])->middleware('permission:role_create')->name('role.form');
+        Route::post('/save/{id?}',  [UserRoleController::class, 'save'])->middleware('permission:role_create')->name('role.save');
+        Route::get('/delete/{id}',  [UserRoleController::class, 'delete'])->middleware('permission:role_delete')->name('role.delete');
     });
 });
 
