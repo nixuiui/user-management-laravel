@@ -24,6 +24,34 @@ User Roles
                     </span>
                     @endif
                 </div>
+                <div class="form-group">
+                    <label>Permission*</label>
+                    <table class="table">
+                        <thead>
+                            <th>Name</th>
+                        </thead>
+                        @foreach ($permissions as $item)
+                            <?php
+                                $find = null;
+                                if(isset($data)) {
+                                    $find = $data->permissions->first(function($value, $key) use ($item) {
+                                        return $value->id == $item->id;
+                                    });
+                                }
+                            ?>
+                            <tbody>
+                                <td>
+                                    <label for="checked{{$item->id}}">
+                                        <input class="mr-2" type="checkbox" name="checkeds[]" value="{{$item->id}}" id="checked{{$item->id}}" {{$find ? 'checked' : ''}}>
+                                        <span>
+                                            {{$item->name}}
+                                        </span>
+                                    </label>
+                                </td>
+                            </tbody>
+                        @endforeach
+                    </table>
+                </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan</button>
             </div>
         </form>
